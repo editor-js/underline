@@ -12,13 +12,17 @@ Inline tool for underlining text fragments for the [Editor.js](https://github.co
 Get the package
 
 ```shell
-npm i --save-dev @editorjs/underline
+npm i --save @editorjs/underline
+```
+
+```shell
+yarn add @editorjs/underline
 ```
 
 Include module at your application
 
 ```javascript
-const Underline = require('@editorjs/underline');
+import Underline from '@editorjs/underline';
 ```
 
 ### Download to your project's source dir
@@ -28,14 +32,10 @@ const Underline = require('@editorjs/underline');
 
 ### Load from CDN
 
-You can load specific version of package from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/@editorjs/underline).
-
-`https://cdn.jsdelivr.net/npm/@editorjs/underline@latest`
-
-Require this script on a page with Editor.js.
+You can load the package from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/@editorjs/underline) and require the script on a page with Editor.js.
 
 ```html
-<script src="..."></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/underline@latest"></script>
 ```
 
 ## Usage
@@ -43,17 +43,15 @@ Require this script on a page with Editor.js.
 Add a new Tool to the `tools` property of the Editor.js initial config.
 
 ```javascript
-var editor = EditorJS({
-  ...
-  
+import EditorJs from '@editorjs/editorjs';
+import Underline from '@editorjs/underline';
+
+var editor = new EditorJS({
+  // ...
   tools: {
-    ...
-    Underline: {
-      class: Underline,
-    }
+    // ...
+    underline: Underline
   },
-  
-  ...
 });
 ```
 
