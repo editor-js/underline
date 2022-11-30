@@ -1,14 +1,15 @@
 /**
  * Build styles
  */
-require('./index.css').toString();
+ import './index.css';
+ import { IconUnderline } from '@codexteam/icons'
 
-/**
+ /**
  * Underline Tool for the Editor.js
  *
  * Allows to wrap inline fragment and style it somehow.
  */
-class Underline {
+export default class Underline {
   /**
    * Class name for term-tag
    *
@@ -169,7 +170,7 @@ class Underline {
    * @returns {string}
    */
   get toolboxIcon() {
-    return require('./assets/underline.svg').default;
+    return IconUnderline;
   }
 
   /**
@@ -185,5 +186,3 @@ class Underline {
     };
   }
 }
-
-module.exports = Underline;
