@@ -36,6 +36,7 @@ module.exports = {
         publicPath: '/',
         filename: 'bundle.js',
         library: 'Underline',
-        libraryTarget: 'umd'
+        libraryTarget: 'umd',
+        libraryExport: 'default'
     }
 };
