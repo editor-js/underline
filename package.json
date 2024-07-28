@@ -1,6 +1,6 @@
 {
   "name": "@editorjs/underline",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "keywords": [
     "underline",
     "tool",
@@ -11,10 +11,19 @@
   "description": "Inline tool for underlining text fragments",
   "license": "MIT",
   "repository": "https://github.com/editor-js/underline",
-  "main": "./dist/bundle.js",
+  "main": "./dist/underline.umd.js",
+  "module": "./dist/underline.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/underline.mjs",
+      "require": "./dist/underline.umd.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "scripts": {
-    "build": "webpack --mode production",
-    "build:dev": "webpack --mode development --watch"
+    "dev": "vite",
+    "build": "vite build"
   },
   "author": {
     "name": "fajardm",
@@ -25,14 +34,11 @@
   },
   "homepage": "https://github.com/editor-js/underline#readme",
   "devDependencies": {
-    "@babel/core": "^7.9.6",
-    "@babel/preset-env": "^7.9.6",
-    "babel-loader": "^8.1.0",
-    "css-loader": "^3.5.3",
-    "raw-loader": "^4.0.1",
-    "style-loader": "^1.2.1",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
+    "typescript": "^5.5.3",
+    "vite": "^4.5.0",
+    "vite-plugin-css-injected-by-js": "^3.3.0",
+    "vite-plugin-dts": "^3.9.1",
+    "@editorjs/editorjs": "^2.30.3"
   },
   "dependencies": {
     "@codexteam/icons": "^0.0.6"

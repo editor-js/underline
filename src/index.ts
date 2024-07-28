@@ -1,43 +1,59 @@
 /**
  * Build styles
  */
- import './index.css';
- import { IconUnderline } from '@codexteam/icons'
+import './index.css';
+import {IconUnderline} from '@codexteam/icons'
+import {type API, type InlineTool, type SanitizerConfig} from "@editorjs/editorjs";
+import {type InlineToolConstructorOptions} from "@editorjs/editorjs/types/tools/inline-tool";
 
- /**
+/**
  * Underline Tool for the Editor.js
  *
  * Allows to wrap inline fragment and style it somehow.
  */
-export default class Underline {
+export default class Underline implements InlineTool {
   /**
    * Class name for term-tag
    *
    * @type {string}
    */
-  static get CSS() {
+  static get CSS(): string {
     return 'cdx-underline';
   };
 
   /**
-   * @param {{api: object}}  - Editor.js API
+   * Toolbar Button
+   *
+   * @type {HTMLButtonElement}
    */
-  constructor({ api }) {
-    this.api = api;
+  private button: HTMLButtonElement | undefined
 
-    /**
-     * Toolbar Button
-     *
-     * @type {HTMLElement|null}
-     */
-    this.button = null;
+  /**
+   * Tag represented the term
+   *
+   * @type {string}
+   */
+  private tag: string = 'U';
 
-    /**
-     * Tag represented the term
-     *
-     * @type {string}
-     */
-    this.tag = 'U';
+  /**
+   * API InlineToolConstructorOptions
+   *
+   * @type {API}
+   */
+  private api: API
+
+  /**
+   * CSS classes
+   *
+   * @type {object}
+   */
+  private iconClasses: {base: string, active: string}
+
+  /**
+   * @param options InlineToolConstructorOptions
+   */
+  public constructor(options: InlineToolConstructorOptions) {
+    this.api = options.api;
 
     /**
      * CSS classes
@@ -53,16 +69,14 @@ export default class Underline {
    *
    * @returns {boolean}
    */
-  static get isInline() {
-    return true;
-  }
+  public static isInline = true;
 
   /**
    * Create button element for Toolbar
    *
    * @returns {HTMLElement}
    */
-  render() {
+  public render(): HTMLElement {
     this.button = document.createElement('button');
     this.button.type = 'button';
     this.button.classList.add(this.iconClasses.base);
@@ -76,7 +90,7 @@ export default class Underline {
    *
    * @param {Range} range - selected fragment
    */
-  surround(range) {
+  public surround(range: Range): void {
     if (!range) {
       return;
     }
@@ -98,7 +112,7 @@ export default class Underline {
    *
    * @param {Range} range - selected fragment
    */
-  wrap(range) {
+  public wrap(range: Range) {
     /**
      * Create a wrapper for highlighting
      */
@@ -127,21 +141,30 @@ export default class Underline {
    *
    * @param {HTMLElement} termWrapper - term wrapper tag
    */
-  unwrap(termWrapper) {
+  public unwrap(termWrapper: HTMLElement): void {
     /**
      * Expand selection to all term-tag
      */
     this.api.selection.expandToTag(termWrapper);
 
     const sel = window.getSelection();
+    if (!sel) {
+      return;
+    }
     const range = sel.getRangeAt(0);
+    if (!range) {
+      return
+    }
 
     const unwrappedContent = range.extractContents();
+    if (!unwrappedContent) {
+      return
+    }
 
     /**
      * Remove empty term-tag
      */
-    termWrapper.parentNode.removeChild(termWrapper);
+    termWrapper.parentNode?.removeChild(termWrapper);
 
     /**
      * Insert extracted content
@@ -158,10 +181,12 @@ export default class Underline {
   /**
    * Check and change Term's state for current selection
    */
-  checkState() {
+  public checkState(): boolean {
     const termTag = this.api.selection.findParentTag(this.tag, Underline.CSS);
 
-    this.button.classList.toggle(this.iconClasses.active, !!termTag);
+    this.button?.classList.toggle(this.iconClasses.active, !!termTag);
+
+    return !!termTag
   }
 
   /**
@@ -169,7 +194,7 @@ export default class Underline {
    *
    * @returns {string}
    */
-  get toolboxIcon() {
+  public get toolboxIcon(): string {
     return IconUnderline;
   }
 
@@ -178,7 +203,7 @@ export default class Underline {
    *
    * @returns {{u: {class: string}}}
    */
-  static get sanitize() {
+  public static get sanitize(): SanitizerConfig {
     return {
       u: {
         class: Underline.CSS,
