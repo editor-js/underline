@@ -34,13 +34,13 @@
   },
   "homepage": "https://github.com/editor-js/underline#readme",
   "devDependencies": {
-    "typescript": "^5.5.3",
-    "vite": "^4.5.0",
-    "vite-plugin-css-injected-by-js": "^3.3.0",
+    "typescript": "^5.5.4",
+    "vite": "^5.3.5",
+    "vite-plugin-css-injected-by-js": "^3.5.1",
     "vite-plugin-dts": "^3.9.1",
-    "@editorjs/editorjs": "^2.30.3"
+    "@editorjs/editorjs": "^2.30.2"
   },
   "dependencies": {
-    "@codexteam/icons": "^0.0.6"
+    "@codexteam/icons": "^0.3.2"
   }
 }
